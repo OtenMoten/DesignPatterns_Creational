@@ -10,29 +10,24 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CarFactory_3 {
 
-    Car erzeugeAuto(String newBrand, String newType, int newPS) {
-        
-        //  if (marke.equals("volvo")) auto = new Volvo(typ, kw);
-        //  if (marke.equals("opel")) auto = new Opel(typ, kw);
-        //
-        // better method		
+    Car createCar(String newBrand, String newType, int newPS) {
+        		
         Car myNewCar = null;
         try {
-            String pack = getClass().getPackage().getName();
+            String classPackageString = getClass().getPackage().getName();
   
-            Constructor<Car> c = (Constructor<Car>) Class.forName(pack + "." + newBrand).
+            //  Get the constructor of the current car of this class-object.
+            Constructor<Car> carConstructor = (Constructor<Car>) Class.forName(classPackageString + "." + newBrand).
                     getConstructor(String.class, Integer.TYPE);
-            myNewCar = (Car) c.newInstance(newType, newPS);
             
-            myNewCar.type = newType;
-            myNewCar.ps= newPS;
+            //  Create a car and define attributes instantly because we have a constructor from above.
+            myNewCar = (Car) carConstructor.newInstance(newType, newPS);
 
-        } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
-            System.out.println("Fehler " + e.getMessage());
+        } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException objException) {
+            System.out.println("Fehler " + objException.getMessage());
         }
-
-		
 
         return myNewCar;
     }
+    
 }
