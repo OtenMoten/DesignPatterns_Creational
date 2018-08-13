@@ -14,6 +14,7 @@ public class AwtFactory implements IGUIFactory {
 
     @Override
     public IWindow createWindow() {
+        
         this.mainFrame = new AwtWindow();
         this.mainFrame.setBounds(100, 300, 500, 200);
         this.mainFrame.setBackground(Color.GRAY);
@@ -25,14 +26,19 @@ public class AwtFactory implements IGUIFactory {
             }
         });
         this.mainFrame.setVisible(true);
-        return (IWindow) this.mainFrame;
+        return (AwtWindow) this.mainFrame;
+        // return (IWindow) this.mainFrame; // works also
+        
     }
 
     @Override
     public IButton createTrigger() {
+        
         this.trigger = new AwtButton();
         this.mainFrame.add(this.trigger);
-        return (IButton) this.trigger;
+        return (AwtButton) this.trigger;
+        // return (IButton) this.trigger; // works also
+        
     }
     
 }
